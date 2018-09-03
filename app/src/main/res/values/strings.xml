@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Weather2</string>
+    <string name="action_search">Поиск</string>
+    <string name="api_key">f8f0a4ca66b4dd4ccf5558985a3fbd74</string>
+    <string name="image_url">http://openweathermap.org/img/w/%s.png</string>
+    <string name="units">metric</string>
+    <string name="weather_condition_image">Графическое отображение погоды</string>
+    <string name="temperature">%.0f°</string>
+    <string name="high_temp">Макс: %.0f°</string>
+    <string name="low_temp">Мин: %.0f°</string>
+    <string name="humidity">Влажность: %s</string>
+    <string name="hint_text">Введите город (напр., Бостон)</string>
+    <string-array name="cities">
+        <item>625144</item>
+        <item>627907</item>
+        <item>629634</item>
+        <item>4298960</item>
+        <item>2988507</item>
+        <item>5245497</item>
+        <item>456172</item>
+    </string-array>
+    <string name="threeDays">3 дня</string>
+    <string name="fiveDays">5 дней</string>
+    <string name="read_error">Невозможно получить данные, или название города некорректно</string>
+    <string name="connect_error">Невозможно подключиться к OpenWeatherMap.org! Пожалуйста, проверьте соединение!</string>
+    <string name="city_exists_error">Этот город уже присутствует в избранных</string>
+    <string name="query_error">Некорректное название города</string>
+    <string name="invalid_url">Неверный URL</string>
+    <string name="city_added">Город был успешно добавлен</string>
+    <string name="menu_reset">Сбросить</string>
+    <string name="menu_add">Добавить город в избранные</string>
+    <string name="favorite">Избранные</string>
+    <string name="no_data">Данных нет</string>
+</resources>
