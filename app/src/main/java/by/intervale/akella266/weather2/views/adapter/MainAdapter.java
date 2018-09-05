@@ -1,4 +1,4 @@
-package by.intervale.akella266.weather2.views.main;
+package by.intervale.akella266.weather2.views.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -25,18 +25,39 @@ public class MainAdapter extends RecyclerView.Adapter {
     private Context mContext;
     private List<WeatherData> mList;
     private boolean isForecast;
+    private OnItemClickListener mListener;
+    private OnItemLongClickListener mLongListener;
 
-    public MainAdapter(Context mContext, boolean isForecast) {
+    public MainAdapter(Context mContext, boolean isForecast,
+                       OnItemClickListener listener, OnItemLongClickListener longListener) {
         this.mContext = mContext;
         this.mList = new ArrayList<>();
         this.isForecast = isForecast;
+        this.mListener = listener;
+        this.mLongListener = longListener;
+    }
+
+    public MainAdapter(Context mContext, boolean isForecast) {
+        this(mContext, isForecast, null, null);
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.weather_item, parent, false);
-        return new MainViewHolder(view);
+        MainViewHolder holder = new MainViewHolder(view);
+        view.setOnClickListener(view1 -> {
+            if (mListener != null) mListener.onItemClick(mList
+                    .get(holder.getAdapterPosition()).getCityId());
+        });
+        view.setOnLongClickListener(view2 -> {
+            if (mLongListener != null) {
+                mLongListener.onItemLongClick(mList.get(holder.getAdapterPosition()));
+                return true;
+            }
+            return false;
+        });
+        return holder;
     }
 
     @Override

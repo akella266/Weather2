@@ -5,36 +5,32 @@ import com.google.gson.annotations.SerializedName;
 
 public class Response {
 
-    @SerializedName("message")
-    @Expose
-    private String message;
     @SerializedName("cod")
     @Expose
     private String cod;
-    @SerializedName("count")
+    @SerializedName("message")
     @Expose
-    private Integer count;
+    private String message;
+    @SerializedName("cnt")
+    @Expose
+    private Integer cnt;
     @SerializedName("list")
     @Expose
     private java.util.List<List> list = null;
+    @SerializedName("city")
+    @Expose
+    private City city;
 
     public Response() {
     }
 
-    public Response(String message, String cod, Integer count, java.util.List<List> list) {
+    public Response(String cod, String message, Integer cnt, java.util.List<List> list, City city) {
         super();
-        this.message = message;
         this.cod = cod;
-        this.count = count;
-        this.list = list;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
         this.message = message;
+        this.cnt = cnt;
+        this.list = list;
+        this.city = city;
     }
 
     public String getCod() {
@@ -45,12 +41,20 @@ public class Response {
         this.cod = cod;
     }
 
-    public Integer getCount() {
-        return count;
+    public String getMessage() {
+        return message;
     }
 
-    public void setCount(Integer count) {
-        this.count = count;
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public Integer getCnt() {
+        return cnt;
+    }
+
+    public void setCnt(Integer cnt) {
+        this.cnt = cnt;
     }
 
     public java.util.List<List> getList() {
@@ -60,5 +64,15 @@ public class Response {
     public void setList(java.util.List<List> list) {
         this.list = list;
     }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
 }
+
 

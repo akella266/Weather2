@@ -28,6 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
+                android:textColor="@android:color/black"
                 tools:text="Boston, US"
                 />
 
@@ -36,6 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
+                android:textColor="@android:color/black"
                 tools:text="Sanny"
                 />
 
@@ -64,6 +66,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
+                android:textColor="@android:color/black"
                 tools:text="22^"
                 />
 
@@ -72,6 +75,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
+                android:textColor="@android:color/black"
                 tools:text="Sanny"
                 />
 

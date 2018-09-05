@@ -1,5 +1,6 @@
 package by.intervale.akella266.weather2.views.main;
 
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SearchView;
 
 import java.util.List;
@@ -14,19 +15,21 @@ public interface MainContract {
         void showFavoriteWeather(List<WeatherData> data);
         void hideFavoriteWeather();
         void showFoundWeather(List<WeatherData> data);
-        void showWeatherDetails(WeatherData data);
+        void showWeatherDetails(String cityId);
         void showNoWeather();
         void showMessage(String message);
+        void showDialog(WeatherData data);
         void showLoadingIndicator(boolean active);
     }
     interface Presenter extends BasePresenter<View>{
         void loadWeather(boolean indicator);
         void setUpSearchListener(SearchView searchView);
         void removeSearchListener();
-        void openWeatherDetails(WeatherData data);
+        void openWeatherDetails(String cityId);
         void addWeatherToFavorite(WeatherData data);
         void removeWeatherFromFavorite(WeatherData data);
         void initSearch();
         void search(CharSequence text);
+        void initDialog(WeatherData data);
     }
 }

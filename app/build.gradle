@@ -52,5 +52,9 @@ dependencies {
     implementation 'com.jakewharton.rxbinding:rxbinding-support-v4:0.4.0'
     implementation 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:0.4.0'
 
+    implementation "android.arch.persistence.room:runtime:1.1.1"
+    annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
+    implementation "android.arch.persistence.room:rxjava2:1.1.1"
+
     implementation 'jp.wasabeef:glide-transformations:3.0.1'
 }

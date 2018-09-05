@@ -25,10 +25,17 @@
     <string name="connect_error">Невозможно подключиться к OpenWeatherMap.org! Пожалуйста, проверьте соединение!</string>
     <string name="city_exists_error">Этот город уже присутствует в избранных</string>
     <string name="query_error">Некорректное название города</string>
+    <string name="db_error">Ошибка при загрузке избранных городов</string>
+    <string name="adding_city_error">Ошибка при добавлении города в избранные</string>
+    <string name="removing_city_error">Ошибка при удалении города из избранных</string>
     <string name="invalid_url">Неверный URL</string>
     <string name="city_added">Город был успешно добавлен</string>
     <string name="menu_reset">Сбросить</string>
-    <string name="menu_add">Добавить город в избранные</string>
+    <string name="add_to_favorite">Добавить город в избранные</string>
+    <string name="add">Добавить</string>
+    <string name="remove_from_favorite">Удалить город из избранных</string>
+    <string name="delete">Удалить</string>
     <string name="favorite">Избранные</string>
     <string name="no_data">Данных нет</string>
+    <string name="cancel">Отмена</string>
 </resources>

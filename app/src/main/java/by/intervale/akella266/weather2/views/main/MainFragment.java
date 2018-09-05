@@ -1,11 +1,13 @@
 package by.intervale.akella266.weather2.views.main;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -26,6 +28,10 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import by.intervale.akella266.weather2.R;
 import by.intervale.akella266.weather2.api.WeatherData;
+import by.intervale.akella266.weather2.views.adapter.MainAdapter;
+import by.intervale.akella266.weather2.views.adapter.OnItemClickListener;
+import by.intervale.akella266.weather2.views.adapter.OnItemLongClickListener;
+import by.intervale.akella266.weather2.views.details.DetailsActivity;
 
 public class MainFragment extends Fragment
         implements MainContract.View{
@@ -53,7 +59,8 @@ public class MainFragment extends Fragment
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdapter = new MainAdapter(getContext(), false);
+        mAdapter = new MainAdapter(getContext(), false,
+                mPresenter::openWeatherDetails, data -> mPresenter.initDialog(data));
     }
 
     @Override
@@ -66,7 +73,6 @@ public class MainFragment extends Fragment
 
         mRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecycler.setAdapter(mAdapter);
-
 
         mSwipeRefresh.setColorSchemeColors(
                 ContextCompat.getColor(getActivity(), R.color.colorPrimary),
@@ -122,6 +128,7 @@ public class MainFragment extends Fragment
             public boolean onMenuItemActionCollapse(MenuItem menuItem) {
                 mPresenter.loadWeather(false);
                 isSearch = false;
+                mPresenter.removeSearchListener();
                 return true;
             }
         };
@@ -162,8 +169,10 @@ public class MainFragment extends Fragment
     }
 
     @Override
-    public void showWeatherDetails(WeatherData data) {
-
+    public void showWeatherDetails(String cityId) {
+        Intent intent = new Intent(getContext(), DetailsActivity.class);
+        intent.putExtra(DetailsActivity.EXTRA_CITY_ID, cityId);
+        startActivity(intent);
     }
 
     @Override
@@ -171,6 +180,33 @@ public class MainFragment extends Fragment
         mRecycler.setVisibility(View.GONE);
         mFavorite.setVisibility(View.GONE);
         mNoData.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showDialog(WeatherData data) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.DialogTheme);
+
+        if (isSearch) {
+            builder.setTitle(R.string.add_to_favorite);
+            builder.setPositiveButton(R.string.add, (dialogInterface, i) -> {
+                mPresenter.addWeatherToFavorite(data);
+                dialogInterface.dismiss();
+            });
+            builder.setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
+                dialogInterface.cancel();
+            });
+        }
+        else{
+            builder.setTitle(R.string.remove_from_favorite);
+            builder.setPositiveButton(R.string.delete, (dialogInterface, i) -> {
+                mPresenter.removeWeatherFromFavorite(data);
+                dialogInterface.dismiss();
+            });
+            builder.setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
+                dialogInterface.cancel();
+            });
+        }
+        builder.show();
     }
 
     @Override

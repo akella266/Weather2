@@ -8,9 +8,8 @@ import retrofit2.http.Query;
 public interface ApiService {
 
     @GET("data/2.5/forecast")
-    Single<Response> getWeatherByCityName(@Query("q") String cityName,
+    Single<Response> getWeatherByCityId(@Query("id") String cityId,
                                           @Query("units") String units,
-                                          @Query("cnt") String countDays,
                                           @Query("APPID") String key);
 
     @GET("data/2.5/group")
