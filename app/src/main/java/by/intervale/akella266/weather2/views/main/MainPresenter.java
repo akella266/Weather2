@@ -58,6 +58,7 @@ public class MainPresenter implements MainContract.Presenter {
         }
 
         if (isFirstLaunch) {
+            isFirstLaunch = false;
             String[] cities = mContext.getResources().getStringArray(R.array.cities);
             List<City> lCities = new ArrayList<>();
             for(String city : cities){

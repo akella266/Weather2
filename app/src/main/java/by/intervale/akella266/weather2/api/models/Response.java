@@ -13,7 +13,7 @@ public class Response {
     private String message;
     @SerializedName("cnt")
     @Expose
-    private Integer cnt;
+    private Double cnt;
     @SerializedName("list")
     @Expose
     private java.util.List<List> list = null;
@@ -24,7 +24,7 @@ public class Response {
     public Response() {
     }
 
-    public Response(String cod, String message, Integer cnt, java.util.List<List> list, City city) {
+    public Response(String cod, String message, Double cnt, java.util.List<List> list, City city) {
         super();
         this.cod = cod;
         this.message = message;
@@ -49,11 +49,11 @@ public class Response {
         this.message = message;
     }
 
-    public Integer getCnt() {
+    public Double getCnt() {
         return cnt;
     }
 
-    public void setCnt(Integer cnt) {
+    public void setCnt(Double cnt) {
         this.cnt = cnt;
     }
 
