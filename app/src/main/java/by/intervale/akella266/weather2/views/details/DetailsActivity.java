@@ -16,6 +16,7 @@ import dagger.android.support.DaggerAppCompatActivity;
 public class DetailsActivity extends DaggerAppCompatActivity {
 
     public final static String EXTRA_CITY_ID = "CITY_ID";
+    public final static String EXTRA_IS_FAVORITE = "IS_FAVORITE";
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -30,8 +31,10 @@ public class DetailsActivity extends DaggerAppCompatActivity {
         ButterKnife.bind(this);
 
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         Fragment fragment =
                 getSupportFragmentManager().findFragmentById(R.id.fragment_container);

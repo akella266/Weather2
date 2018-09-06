@@ -30,6 +30,7 @@
     <string name="removing_city_error">Ошибка при удалении города из избранных</string>
     <string name="invalid_url">Неверный URL</string>
     <string name="city_added">Город был успешно добавлен</string>
+    <string name="city_deleted">Город был успешно удален</string>
     <string name="menu_reset">Сбросить</string>
     <string name="add_to_favorite">Добавить город в избранные</string>
     <string name="add">Добавить</string>

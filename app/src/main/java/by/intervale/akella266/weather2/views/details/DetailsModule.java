@@ -22,4 +22,10 @@ public abstract class DetailsModule {
     static String provideCityId(DetailsActivity detailsActivity){
         return detailsActivity.getIntent().getStringExtra(DetailsActivity.EXTRA_CITY_ID);
     }
+
+    @Provides
+    @ActivityScoped
+    static boolean provideFavorite(DetailsActivity detailsActivity){
+        return detailsActivity.getIntent().getBooleanExtra(DetailsActivity.EXTRA_IS_FAVORITE, false);
+    }
 }

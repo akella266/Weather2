@@ -11,9 +11,14 @@ public interface DetailsContract {
         void showDetails(WeatherData data);
         void showMessage(String message);
         void showForecast(List<WeatherData> forecast);
+        void setFavoriteState();
     }
     interface Presenter extends BasePresenter<View> {
         void loadDetails();
         void changeDayForecast(int countDays);
+        boolean isFavorite();
+        void setFavorite(boolean isFavorite);
+        void addToFavorite();
+        void removeFromFavorite();
     }
 }

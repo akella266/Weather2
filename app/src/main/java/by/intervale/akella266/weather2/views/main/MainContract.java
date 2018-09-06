@@ -15,7 +15,7 @@ public interface MainContract {
         void showFavoriteWeather(List<WeatherData> data);
         void hideFavoriteWeather();
         void showFoundWeather(List<WeatherData> data);
-        void showWeatherDetails(String cityId);
+        void showWeatherDetails(String cityId, boolean isFavorite);
         void showNoWeather();
         void showMessage(String message);
         void showDialog(WeatherData data);
@@ -26,6 +26,7 @@ public interface MainContract {
         void setUpSearchListener(SearchView searchView);
         void removeSearchListener();
         void openWeatherDetails(String cityId);
+        void checkOnFavorite(String cityId);
         void addWeatherToFavorite(WeatherData data);
         void removeWeatherFromFavorite(WeatherData data);
         void initSearch();

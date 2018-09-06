@@ -39,7 +39,7 @@ public class MainPresenter implements MainContract.Presenter {
     private boolean isFirstLaunch;
 
     @Inject
-    public MainPresenter(Context mContext, WeatherRepository repository) {
+    MainPresenter(Context mContext, WeatherRepository repository) {
         this.mContext = mContext;
         this.mRepository = repository;
         mSearchSubscription = null;
@@ -102,8 +102,19 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     @Override
-    public void openWeatherDetails(String cityId) {
-        mView.showWeatherDetails(cityId);
+    public void openWeatherDetails(final String cityId) {
+        mRepository.getCities(new WeatherDataSource.CitiesLoadedCallback() {
+            @Override
+            public void onCitiesLoaded(List<City> cities) {
+                if (cities.contains(new City(cityId))) mView.showWeatherDetails(cityId, true);
+                else mView.showWeatherDetails(cityId, false);
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                mView.showWeatherDetails(cityId, false);
+            }
+        });
     }
 
     @Override
@@ -124,7 +135,10 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void removeWeatherFromFavorite(WeatherData data) {
         mRepository.removeCity(new City(data.getCityId()), isSuccefull -> {
-            if(isSuccefull) loadWeather(false);
+            if(isSuccefull) {
+                mView.showMessage(mContext.getString(R.string.city_deleted));
+                loadWeather(false);
+            }
             else mView.showMessage(mContext.getString(R.string.removing_city_error));
         });
     }
@@ -164,6 +178,11 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void initSearch() {
         mView.showNoWeather();
+    }
+
+    @Override
+    public void checkOnFavorite(String cityId) {
+
     }
 
     @Override
@@ -207,7 +226,7 @@ public class MainPresenter implements MainContract.Presenter {
         return false;
     }
 
-    public boolean checkNetworkAvailable() {
+    private boolean checkNetworkAvailable() {
         ConnectivityManager cm =
                 (ConnectivityManager)mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
 

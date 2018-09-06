@@ -21,7 +21,7 @@ public class City {
     }
     @Ignore
     public City(String cityId) {
-        this(UUID.randomUUID().toString(), cityId);
+        this(cityId.hashCode() + "", cityId);
     }
 
     @NonNull
@@ -39,6 +39,19 @@ public class City {
 
     public void setCityId(String cityId) {
         this.cityId = cityId;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) return true;
+        if (!(obj instanceof City)) return false;
+        City city = (City)obj;
+        return city.getCityId().equals(cityId);
+    }
+
+    @Override
+    public int hashCode() {
+        return cityId.hashCode();
     }
 
     @Override

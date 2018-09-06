@@ -10,7 +10,11 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -50,7 +54,7 @@ public class DetailsFragment extends Fragment
     @BindView(R.id.recycler_forecast)
     RecyclerView mRecycler;
     MainAdapter mAdapter;
-
+    MenuItem mFavoriteItem;
     @Inject
     DetailsContract.Presenter mPresenter;
 
@@ -68,6 +72,7 @@ public class DetailsFragment extends Fragment
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_details, container, false);
         unbinder = ButterKnife.bind(this, view);
+        setHasOptionsMenu(true);
 
         mRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecycler.setAdapter(mAdapter);
@@ -119,6 +124,31 @@ public class DetailsFragment extends Fragment
     }
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.details, menu);
+        mFavoriteItem = menu.findItem(R.id.item_favorite);
+        setFavoriteState();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.item_favorite:{
+                if(mPresenter.isFavorite()){
+                    mPresenter.setFavorite(false);
+                    mPresenter.removeFromFavorite();
+                }
+                else{
+                    mPresenter.setFavorite(true);
+                    mPresenter.addToFavorite();
+                }
+                return true;
+            }
+            default:return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
     public void showDetails(WeatherData data) {
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         if (activity != null){
@@ -146,5 +176,17 @@ public class DetailsFragment extends Fragment
     @Override
     public void showMessage(String message) {
         Snackbar.make(mRecycler, message, Snackbar.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void setFavoriteState(){
+        if(mPresenter.isFavorite()) {
+            mFavoriteItem.setIcon(R.drawable.ic_star_fill);
+            mFavoriteItem.setTitle(R.string.remove_from_favorite);
+        }
+        else{
+            mFavoriteItem.setIcon(R.drawable.ic_star_border);
+            mFavoriteItem.setTitle(R.string.add_to_favorite);
+        }
     }
 }

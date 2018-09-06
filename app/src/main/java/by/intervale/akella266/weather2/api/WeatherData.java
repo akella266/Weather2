@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.TimeZone;
 
 public class WeatherData implements Parcelable {
@@ -34,7 +35,7 @@ public class WeatherData implements Parcelable {
         calendar.setTimeInMillis(timeStamp*1000);
         TimeZone tz = TimeZone.getDefault();
         calendar.add(Calendar.MILLISECOND, tz.getOffset(calendar.getTimeInMillis()));
-            SimpleDateFormat dateFormater = new SimpleDateFormat("EEEE, d MMM");
+            SimpleDateFormat dateFormater = new SimpleDateFormat("EEEE, d MMM", Locale.getDefault());
 
         this.cityId = cityId;
         this.day = calendar.get(Calendar.DAY_OF_MONTH);

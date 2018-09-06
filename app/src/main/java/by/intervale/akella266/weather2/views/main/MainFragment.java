@@ -169,9 +169,10 @@ public class MainFragment extends Fragment
     }
 
     @Override
-    public void showWeatherDetails(String cityId) {
+    public void showWeatherDetails(String cityId, boolean isFavorite) {
         Intent intent = new Intent(getContext(), DetailsActivity.class);
         intent.putExtra(DetailsActivity.EXTRA_CITY_ID, cityId);
+        intent.putExtra(DetailsActivity.EXTRA_IS_FAVORITE, isFavorite);
         startActivity(intent);
     }
 
@@ -192,9 +193,7 @@ public class MainFragment extends Fragment
                 mPresenter.addWeatherToFavorite(data);
                 dialogInterface.dismiss();
             });
-            builder.setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
-                dialogInterface.cancel();
-            });
+            builder.setNegativeButton(R.string.cancel, (dialogInterface, i) -> dialogInterface.cancel());
         }
         else{
             builder.setTitle(R.string.remove_from_favorite);
@@ -202,9 +201,7 @@ public class MainFragment extends Fragment
                 mPresenter.removeWeatherFromFavorite(data);
                 dialogInterface.dismiss();
             });
-            builder.setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
-                dialogInterface.cancel();
-            });
+            builder.setNegativeButton(R.string.cancel, (dialogInterface, i) -> dialogInterface.cancel());
         }
         builder.show();
     }
